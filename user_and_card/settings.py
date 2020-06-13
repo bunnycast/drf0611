@@ -132,4 +132,20 @@ REST_FRAMEWORK = {
     ],      # 로그인 블랙리스트
     'DEFAULT_PAGINATION_CLASS': 'core.paginations.IdPagination',    # CursorPagitnaion은 created 정렬이 기본값이므로 id순으로 정렬되도록 오버라이딩함
     'PAGE_SIZE': 100,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],      # Throttling 설정, anon: 비로그인 상태
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '3/minute',
+    },
+}
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
 }

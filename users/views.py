@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
@@ -19,3 +21,11 @@ class UserViewSet(ModelViewSet):
             return [IsOwner()]
 
         return super().get_permissions()
+
+    @method_decorator(cache_page(60 * 60 * 2))      # caching을 위한 데코레이터 세팅
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @method_decorator(cache_page(60 * 60 * 2))
+    def rertrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)

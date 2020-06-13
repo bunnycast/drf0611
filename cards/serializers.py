@@ -1,9 +1,8 @@
 from rest_framework.serializers import ModelSerializer
-from cards.models import Cards
+from cards import models
 
 
 class CardSerializer(ModelSerializer):
-
     class Meta:
-        model = Cards
-        fields = ('cardname', 'user', 'cardnos')
+        model = models.Cards
+        fields = ('id', 'user', 'title', 'contents,', 'created_at', 'is_reported', 'color',)
